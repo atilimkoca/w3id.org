@@ -18,4 +18,10 @@ receives the human-readable documentation. Version IRIs of the form
 
 All content is licensed under CC BY 4.0.
 
-**Contact:** okan.bursa@bakircay.edu.tr
+## Maintainers
+
+| GitHub | Contact |
+|---|---|
+| [@atilimkoca](https://github.com/atilimkoca) | okan.bursa@bakircay.edu.tr |
+
+Redirect target: <https://atilimkoca.github.io/syz-ontology/> (live).

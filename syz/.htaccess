@@ -4,7 +4,8 @@
 # Department of Computer Engineering, Izmir Bakircay University.
 #
 # Project : Holonic Knowledge Representation for Clinical Evidence
-# Contact : okan.bursa@bakircay.edu.tr
+# Maintainer : @atilimkoca (GitHub)
+# Contact    : okan.bursa@bakircay.edu.tr
 #
 # Three vocabulary modules are served, each with an ontology IRI, a canonical
 # namespace (ontology IRI + '#') and a version IRI. Content negotiation returns
