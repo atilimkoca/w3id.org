@@ -1,0 +1,92 @@
+# https://w3id.org/syz/
+#
+# Vocabularies for holonic knowledge representation of clinical evidence.
+# Department of Computer Engineering, Izmir Bakircay University.
+#
+# Project : Holonic Knowledge Representation for Clinical Evidence
+# Contact : okan.bursa@bakircay.edu.tr
+#
+# Three vocabulary modules are served, each with an ontology IRI, a canonical
+# namespace (ontology IRI + '#') and a version IRI. Content negotiation returns
+# Turtle to RDF clients and HTML documentation to browsers. Term IRIs carry a
+# fragment, which is not sent to the server, so a request for holon:Holon
+# arrives here as a request for /syz/holon and is handled by the same rules.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# holon core vocabulary -- https://w3id.org/syz/holon
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^holon/?$ https://atilimkoca.github.io/syz-ontology/holon/1.0.0/holon.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^holon/?$ https://atilimkoca.github.io/syz-ontology/holon/1.0.0/index.html [R=303,L]
+
+RewriteRule ^holon/?$ https://atilimkoca.github.io/syz-ontology/holon/1.0.0/holon.ttl [R=303,L]
+
+# version IRI -- https://w3id.org/syz/holon/1.0.0
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^holon/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://atilimkoca.github.io/syz-ontology/holon/$1/index.html [R=303,L]
+
+RewriteRule ^holon/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://atilimkoca.github.io/syz-ontology/holon/$1/holon.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# clinical-evidence vocabulary -- https://w3id.org/syz/openevidence
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^openevidence/?$ https://atilimkoca.github.io/syz-ontology/openevidence/1.0.0/openevidence.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^openevidence/?$ https://atilimkoca.github.io/syz-ontology/openevidence/1.0.0/index.html [R=303,L]
+
+RewriteRule ^openevidence/?$ https://atilimkoca.github.io/syz-ontology/openevidence/1.0.0/openevidence.ttl [R=303,L]
+
+# version IRI -- must precede the instance-path rule below
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^openevidence/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://atilimkoca.github.io/syz-ontology/openevidence/$1/index.html [R=303,L]
+
+RewriteRule ^openevidence/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://atilimkoca.github.io/syz-ontology/openevidence/$1/openevidence.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# instance identifiers -- https://w3id.org/syz/openevidence/<collection>/<key>
+# The datasets are distributed as a whole rather than served per resource, so
+# these resolve to the dataset description page.
+# ---------------------------------------------------------------------------
+RewriteRule ^openevidence/(questions|diseases|drugs|sources|events|specialties|symptoms|authors|generated|chains)(/.*)?$ https://atilimkoca.github.io/syz-ontology/data/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# medical subset vocabulary -- https://w3id.org/syz/medical
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^medical/?$ https://atilimkoca.github.io/syz-ontology/medical/1.0.0/index.html [R=303,L]
+
+RewriteRule ^medical/?$ https://atilimkoca.github.io/syz-ontology/medical/1.0.0/medical.ttl [R=303,L]
+
+RewriteRule ^medical/shapes/?$ https://atilimkoca.github.io/syz-ontology/medical/1.0.0/index.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^medical/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://atilimkoca.github.io/syz-ontology/medical/$1/index.html [R=303,L]
+
+RewriteRule ^medical/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://atilimkoca.github.io/syz-ontology/medical/$1/medical.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# everything else under /syz/ -> landing page
+# ---------------------------------------------------------------------------
+RewriteRule ^$ https://atilimkoca.github.io/syz-ontology/ [R=303,L]
+RewriteRule ^(.*)$ https://atilimkoca.github.io/syz-ontology/ [R=303,L]
